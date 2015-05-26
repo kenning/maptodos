@@ -1,0 +1,64 @@
+<head>
+  <title>threedos</title>
+  <style type="text/css">
+    html, body, #map-canvas {height:500px; margin:0; padding:0;}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+  
+    <header>
+      {{#if locationNamed}}
+          <form class="new-task">
+            <input type="text" name="text" placeholder="new task" />
+          </form>
+      {{/if}}
+      {{#if currentMarkerExists}}
+        {{#unless locationNamed}}
+          <form class="new-location">
+            <input type="text" name="text" placeholder="new location" />
+          </form>
+        {{/unless}}
+      {{/if}}
+
+<!--      {{> loginButtons}}      -->
+    </header>
+
+    {{#if locationNamed}}
+      <ul>
+        {{#each tasks}}
+          {{>task}}
+        {{/each}}
+      </ul>
+    {{else}}
+      <ul>
+        {{#each allTasks}}
+          {{>task}}
+        {{/each}}
+      </ul>
+    {{/if}}
+
+    {{>map}}
+
+  </div>
+</body>
+
+<template name="task">
+  <li class="{{#if checked}}checked{{/if}} task">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+    {{text}}
+  </li>
+</template>
+
+<template name="map">
+  <div id="map-canvas"></div>
+</template>
+
+<template name="infowindow">
+  {{data}}
+</template>
+
+<template name="newLocation">
+</template>
